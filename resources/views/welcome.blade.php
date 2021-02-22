@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+
+    <script src="https://kit.fontawesome.com/66b016d0c4.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="app">
@@ -35,14 +39,11 @@
                     </div>
                     <div class="col-3 col-md-3"></div>
             </div>
-            <div class="row mt-2">
-                <div class="col-12 d-flex justify-content-center">
-                    <vue-record-audio mode="press" @result="onResult" @start="limpiar" />
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-12 d-flex justify-content-center">
-                    <small id="emailHelp" class="form-text text-muted">Presione para iniciar a grabar y vuelva a presionar para detener</small>
+            <div class="row mt-2 d-flex justify-content-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-danger" :disabled="!boton_grabar" v-on:click="grabar"><i class="fas fa-microphone"></i> Grabar</button>
+                    <button type="button" class="btn btn-danger" :disabled="!boton_pausar" v-on:click="pausar"><i class="fas fa-pause"></i> Pausar</button>
+                    <button type="button" class="btn btn-danger" :disabled="!boton_detener" v-on:click="detener"><i class="fas fa-stop"></i> Detener</button>
                 </div>
             </div>
             <div class="row mt-2">
@@ -91,7 +92,13 @@
             </div>
             <div class="row mt-1 mb-4">
                 <div class="col-12 d-flex justify-content-center">
-                    <button class="btn btn-success" v-on:click="enviar">Enviar Audio</button>
+                    <button v-if="!cargando" class="btn btn-success" type="button" v-on:click="enviar">
+                        Enviar Audio
+                    </button>
+                    <button v-else class="btn btn-success" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Enviar Audio
+                    </button>
                 </div>
             </div>
         </div>

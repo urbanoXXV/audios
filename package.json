@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "@codekraft-studio/vue-record": "0.0.3"
+        "@codekraft-studio/vue-record": "0.0.3",
+        "vue-audio-recorder": "^3.0.1"
     }
 }
