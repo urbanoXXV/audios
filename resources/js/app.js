@@ -54,10 +54,44 @@ const app = new Vue({
             this.url_audio = URL.createObjectURL(this.audio)
             this.existe = true
         },
+        cambiartexto() {
+            let vm =this
+            axios.post('getTexto', {
+            })
+            .then(function (response) {
+                vm.texto = response.data
+                //console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
         enviar() {
+            let run = true
             let vm = this
             let data = new FormData()
             var file = new File([vm.audio], "holi");
+            if(vm.audio == null) {
+                alert("Grabe un audio")
+                run = false
+                return false
+            }
+            if(vm.dni == '') {
+                alert("Ingrese su DNI")
+                run = false
+                return false
+            }
+            if(vm.edad == '') {
+                alert("Ingrese su edad")
+                run = false
+                return false
+            }
+            if(vm.sexo == '') {
+                alert("Ingrese su sexo")
+                run = false
+                return false
+            }
+            
             data.append('dni', vm.dni)
             data.append('edad', vm.edad)
             data.append('sexo', vm.sexo)
@@ -68,12 +102,16 @@ const app = new Vue({
                 'Content-Type' : 'multipart/form-data'
                 }
             }
-            
-            axios.post('setAudio', data, config).then(response => {
-                console.log('response', response)
-            }).catch(error => {
-                console.log('error', error)
-            })
+            if (run) {
+                axios.post('setAudio', data, config).then(response => {
+                    console.log('response', response)
+                    $('#myModal').modal('show')
+                    this.limpiar()
+                    this.cambiartexto()
+                }).catch(error => {
+                    console.log('error', error)
+                })
+            }
         },
     },
     beforeMount() {

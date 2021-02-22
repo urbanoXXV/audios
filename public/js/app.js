@@ -7946,10 +7946,46 @@ var app = new Vue({
       this.url_audio = URL.createObjectURL(this.audio);
       this.existe = true;
     },
+    cambiartexto: function cambiartexto() {
+      var vm = this;
+      axios.post('getTexto', {}).then(function (response) {
+        vm.texto = response.data; //console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     enviar: function enviar() {
+      var _this = this;
+
+      var run = true;
       var vm = this;
       var data = new FormData();
       var file = new File([vm.audio], "holi");
+
+      if (vm.audio == null) {
+        alert("Grabe un audio");
+        run = false;
+        return false;
+      }
+
+      if (vm.dni == '') {
+        alert("Ingrese su DNI");
+        run = false;
+        return false;
+      }
+
+      if (vm.edad == '') {
+        alert("Ingrese su edad");
+        run = false;
+        return false;
+      }
+
+      if (vm.sexo == '') {
+        alert("Ingrese su sexo");
+        run = false;
+        return false;
+      }
+
       data.append('dni', vm.dni);
       data.append('edad', vm.edad);
       data.append('sexo', vm.sexo);
@@ -7959,11 +7995,19 @@ var app = new Vue({
           'Content-Type': 'multipart/form-data'
         }
       };
-      axios.post('setAudio', data, config).then(function (response) {
-        console.log('response', response);
-      })["catch"](function (error) {
-        console.log('error', error);
-      });
+
+      if (run) {
+        axios.post('setAudio', data, config).then(function (response) {
+          console.log('response', response);
+          $('#myModal').modal('show');
+
+          _this.limpiar();
+
+          _this.cambiartexto();
+        })["catch"](function (error) {
+          console.log('error', error);
+        });
+      }
     }
   },
   beforeMount: function beforeMount() {

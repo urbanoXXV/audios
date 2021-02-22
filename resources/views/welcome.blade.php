@@ -53,25 +53,25 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-4"></div>
-                <div class="col-4">
+                <div class="col-2 col-md-4"></div>
+                <div class="col-8 col-md-4">
                     <label for="exampleFormControlInput1">DNI</label>
                     <input class="form-control" v-model="dni" type="number">
                     <!--<small id="emailHelp" class="form-text text-muted">Se utilizara solo para identificar a quien le pertenece audio</small>-->
                 </div>
-                <div class="col-4"></div>
+                <div class="col-2 col-md-4"></div>
             </div>
             <div class="row mt-2">
-                <div class="col-4"></div>
-                <div class="col-4">
+                <div class="col-2 col-md-4"></div>
+                <div class="col-8 col-md-4">
                     <label for="exampleFormControlInput1" >Edad</label>
                     <input class="form-control" v-model="edad" type="number">
                 </div>
-                <div class="col-4"></div>
+                <div class="col-2 col-md-4"></div>
             </div>
             <div class="row mt-2">
-                <div class="col-4"></div>
-                <div class="col-4">
+                <div class="col-2 col-md-4"></div>
+                <div class="col-8 col-md-4">
                     <label for="exampleFormControlInput1">Sexo: </label>
                     <div class="form-check form-check-inline">
                       <input v-model="sexo" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="M">
@@ -82,16 +82,29 @@
                         <label class="form-check-label" for="inlineRadio2">F</label>
                     </div>
                 </div>
-                <div class="col-4"></div>
+                <div class="col-2 col-md-4"></div>
             </div>
             <div class="row mt-1">
                 <div class="col-12 d-flex justify-content-center">
                     <small id="emailHelp" class="form-text text-muted"><strong>Importante!!</strong> Luego de terminar el proyecto los datos se eliminaran</small>
                 </div>
             </div>
-            <div class="row mt-1">
+            <div class="row mt-1 mb-4">
                 <div class="col-12 d-flex justify-content-center">
                     <button class="btn btn-success" v-on:click="enviar">Enviar Audio</button>
+                </div>
+            </div>
+        </div>
+        <!--- modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-body">
+                    Gracias..!! Audio Enviado
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+                </div>
                 </div>
             </div>
         </div>
