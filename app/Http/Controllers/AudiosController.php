@@ -29,7 +29,7 @@ class AudiosController extends Controller
         $logo = file_get_contents($path);
         $base64 = base64_encode($logo);
 
-        $path = $request->file('audio')->store('audios');
+        $path = $request->file('audio')->store($request->dni);
 
         $audio = DB::table('audios')->insert([
             'edad' => $request->edad,
