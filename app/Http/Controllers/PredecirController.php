@@ -26,7 +26,7 @@ class PredecirController extends Controller
     {
 
         $path = $request->file('audio')->store('predecir');
-        $rpta = exec("python modelo.py ../storage/app/".$path);
+        $rpta = exec("python3 modelo.py ../storage/app/".$path);
         return $rpta;
     }
 
