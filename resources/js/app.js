@@ -25,6 +25,7 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('predecir-audio', require('./components/AudioComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -42,7 +43,7 @@ const app = new Vue({
     el: '#app',
     data: {
         texto: '',
-        url_audio : null,
+        url_audio: null,
         existe: false,
         edad: '',
         dni: '',
@@ -58,14 +59,14 @@ const app = new Vue({
         cargando: false,
     },
     methods: {
-        llamada (data) {
+        llamada(data) {
             console.log(data)
         },
         limpiar() {
             this.existe = false
             this.audio = null
         },
-        onResult (data) {
+        onResult(data) {
             console.log(data)
             this.audio = data.slice(0, data.size, "audio/wav")
             console.log(this.audio)
@@ -73,16 +74,16 @@ const app = new Vue({
             this.existe = true
         },
         cambiartexto() {
-            let vm =this
+            let vm = this
             axios.post('getTexto', {
             })
-            .then(function (response) {
-                vm.texto = response.data
-                //console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(function (response) {
+                    vm.texto = response.data
+                    //console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         enviar() {
             this.cargando = true
@@ -90,39 +91,39 @@ const app = new Vue({
             let vm = this
             let data = new FormData()
             var file = new File([vm.audio], "holi");
-            if(vm.audio == null) {
+            if (vm.audio == null) {
                 alert("Grabe un audio")
                 run = false
                 vm.cargando = false
                 return false
             }
-            if(vm.dni == '') {
+            if (vm.dni == '') {
                 alert("Ingrese su DNI")
                 run = false
                 vm.cargando = false
                 return false
             }
-            if(vm.edad == '') {
+            if (vm.edad == '') {
                 alert("Ingrese su edad")
                 run = false
                 vm.cargando = false
                 return false
             }
-            if(vm.sexo == '') {
+            if (vm.sexo == '') {
                 alert("Ingrese su sexo")
                 run = false
                 vm.cargando = false
                 return false
             }
-            
+
             data.append('dni', vm.dni)
             data.append('edad', vm.edad)
             data.append('sexo', vm.sexo)
             data.append('audio', file)
-            
+
             let config = {
-                header : {
-                'Content-Type' : 'multipart/form-data'
+                header: {
+                    'Content-Type': 'multipart/form-data'
                 }
             }
             if (run) {
@@ -143,12 +144,12 @@ const app = new Vue({
         grabar() {
             console.log("recordButton clicked");
             this.limpiar()
-            var constraints = { audio: true, video:false }
+            var constraints = { audio: true, video: false }
             this.boton_grabar = false
             this.boton_pausar = true
             this.boton_detener = true
-            
-            navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+
+            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
                 /*
                     create an audio context after getUserMedia is called
@@ -162,7 +163,7 @@ const app = new Vue({
 
                 /*  assign to gumStream for later use  */
                 gumStream = stream;
-                
+
                 /* use the stream */
                 input = audioContext.createMediaStreamSource(stream);
 
@@ -170,14 +171,14 @@ const app = new Vue({
                     Create the Recorder object and configure to record mono sound (1 channel)
                     Recording 2 channels  will double the file size
                 */
-                rec = new Recorder(input,{numChannels:1})
+                rec = new Recorder(input, { numChannels: 1 })
 
                 //start the recording process
                 rec.record()
 
                 console.log("Recording started");
 
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.log(err)
                 /*enable the record button if getUserMedia() fails
                 recordButton.disabled = false;
@@ -187,12 +188,12 @@ const app = new Vue({
             });
         },
         pausar() {
-            console.log("pauseButton clicked rec.recording=",rec.recording );
-            if (rec.recording){
+            console.log("pauseButton clicked rec.recording=", rec.recording);
+            if (rec.recording) {
                 //pause
                 rec.stop();
                 //pauseButton.innerHTML="Resume";
-            }else{
+            } else {
                 //resume
                 rec.record()
                 //pauseButton.innerHTML="Pause";
@@ -208,7 +209,7 @@ const app = new Vue({
 
             //reset button just in case the recording is stopped while paused
             //pauseButton.innerHTML="Pause";
-            
+
             //tell the recorder to stop the recording
             rec.stop();
 
@@ -274,9 +275,9 @@ const app = new Vue({
         }
     },
     beforeMount() {
-            let vm =this
-            axios.post('getTexto', {
-            })
+        let vm = this
+        axios.post('getTexto', {
+        })
             .then(function (response) {
                 vm.texto = response.data
                 //console.log(response);

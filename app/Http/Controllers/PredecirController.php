@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class AudiosController extends Controller
+class PredecirController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,19 +24,10 @@ class AudiosController extends Controller
      */
     public function store(Request $request)
     {
-        ini_set('post_max_size', '100M');
-        ini_set('upload_max_filesize', '100M');
 
-        $path = $request->file('audio')->store($request->dni);
-
-        $audio = DB::table('audios')->insert([
-            'edad' => $request->edad,
-            'dni' => $request->dni,
-            'sexo' => $request->sexo,
-            'audio' => $path
-        ]);
-
-        return $path;
+        $path = $request->file('audio')->store('predecir');
+        $rpta = exec("python modelo.py ../storage/app/".$path);
+        return $rpta;
     }
 
     /**

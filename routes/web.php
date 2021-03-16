@@ -5,6 +5,7 @@ use App\Http\Controllers\AudiosController;
 use App\Http\Controllers\GetAudiosController;
 use App\Http\Controllers\TextoController;
 use App\Http\Controllers\SetTextosController;
+use App\Http\Controllers\PredecirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/prediccion', function () {
+    return view('prediccion');
+});
+
+Route::apiResource('/predecir', PredecirController::class);
 Route::apiResource('/setAudio', AudiosController::class);
 Route::apiResource('/getTexto', TextoController::class);
 Route::apiResource('/getAudios', GetAudiosController::class);
