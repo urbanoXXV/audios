@@ -102,7 +102,7 @@
                 axios.post('predecir', data, config).then(response => {
                     console.log('response', response)
                     if (response.data == 0) {
-                        vm.locutor = "Jaime"
+                        vm.locutor = "Alonso"
                     } else if(response.data == 1) {
                         vm.locutor = "JeanCarlos"
                     } else if(response.data == 2) {
@@ -110,11 +110,9 @@
                     } else if(response.data == 3) {
                         vm.locutor = "Jorge"
                     } else if(response.data == 4) {
-                        vm.locutor = "Otro"
+                        vm.locutor = "Luis"
                     } else if(response.data == 5) {
-                        vm.locutor = "Samuel"
-                    } else if(response.data == 6) {
-                        vm.locutor = "Veller"
+                        vm.locutor = "Otros"
                     }
                     
                 }).catch(error => {
